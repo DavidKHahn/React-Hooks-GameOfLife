@@ -1,5 +1,5 @@
+import produce from 'immer';
 import React, { useState } from 'react';
-import produce from 'immer'
 
 const numRows = 50;
 const numCols = 50;
@@ -20,6 +20,8 @@ const App: React.FC = () => {
   console.log(grid);
 
   return (
+    <>
+    <button>start</button>
     <div style={{
       display: 'grid',
       gridTemplateColumns: `repeat(${numCols}, 20px)`
@@ -32,7 +34,8 @@ const App: React.FC = () => {
     onClick={() => {
   // immer's produce will make an immutable change and generate a new grid for use
       const newGrid = produce(grid, gridCopy => {
-        gridCopy[i][k] = 1;
+  // turns clicked grid pink or white if clicked again
+        gridCopy[i][k] = grid[i][k] ? 0 : 1;
       })
       setGrid(newGrid)
     }}
@@ -42,6 +45,7 @@ const App: React.FC = () => {
     }} />)
   )}
   </div>
+  </>
   )
 }
 
