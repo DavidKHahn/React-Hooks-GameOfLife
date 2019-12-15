@@ -1,5 +1,5 @@
 import produce from 'immer';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 const numRows = 50;
 const numCols = 50;
@@ -18,10 +18,20 @@ const App: React.FC = () => {
   });
 // store state running, setRunning currently at 'false'
 const [running, setRunning] = useState(false);
+
+const runningRef = useRef(running);
+// current value of ref is the value of running
+runningRef.current = running
+
 // useCallback: does not recreate after every render
 // empty array makes sure the fn is only called once
 const runSimulation = useCallback(() => {
-
+// kill condition
+  if (!runningRef.current) {
+    return;
+  }
+  // simulate
+  setTimeout(runSimulation, 1000);
 }, [])
 
   return (
