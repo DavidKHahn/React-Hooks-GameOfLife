@@ -1,5 +1,5 @@
 import produce from 'immer';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 const numRows = 50;
 const numCols = 50;
@@ -16,12 +16,24 @@ const App: React.FC = () => {
 
     return rows;
   });
+// store state running, setRunning currently at 'false'
+const [running, setRunning] = useState(false);
+// useCallback: does not recreate after every render
+// empty array makes sure the fn is only called once
+const runSimulation = useCallback(() => {
 
-  console.log(grid);
+}, [])
 
   return (
     <>
-    <button>start</button>
+    <button
+    onClick={() => {
+      setRunning(!running);
+    }}>
+
+      {running ? "stop" : "start"}
+
+    </button>
     <div style={{
       display: 'grid',
       gridTemplateColumns: `repeat(${numCols}, 20px)`
