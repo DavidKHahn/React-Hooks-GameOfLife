@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './App.css';
+import produce from 'immer'
 
 const numRows = 50;
 const numCols = 50;
@@ -29,6 +29,13 @@ const App: React.FC = () => {
     rows.map((col, k) =>
     <div
     key={`${i}-${k}`}
+    onClick={() => {
+  // immer's produce will make an immutable change and generate a new grid for use
+      const newGrid = produce(grid, gridCopy => {
+        gridCopy[i][k] = 1;
+      })
+      setGrid(newGrid)
+    }}
     style={{ width: 20,
       height: 20, backgroundColor: grid[i][k] ? 'pink' : undefined,
       border: 'solid 1px black'
