@@ -4,6 +4,17 @@ import React, { useCallback, useRef, useState } from 'react';
 const numRows = 50;
 const numCols = 50;
 
+const operations = [
+  [0, 1],
+  [0, -1],
+  [1, -1],
+  [-1, 1],
+  [1, 1],
+  [-1, -1],
+  [1, 0],
+  [-1, 0]
+]
+
 const App: React.FC = () => {
   const [grid, setGrid] = useState(() => {
 
@@ -30,6 +41,21 @@ const runSimulation = useCallback(() => {
   if (!runningRef.current) {
     return;
   }
+
+// double for loops
+setGrid((g) => {
+  return produce(g, gridCopy => {
+    for (let i = 0; i < numRows; i++) {
+      for (let k = 0; k < numCols; k++) {
+        let neighbors = 0;
+        if (gridCopy[i][k + 1] === 1) {
+          neighbors += 1;
+        }
+
+      }
+    }
+  })
+})
   // simulate
   setTimeout(runSimulation, 1000);
 }, [])
